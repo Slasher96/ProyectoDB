@@ -1,0 +1,798 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+  <!-- EF Runtime content -->
+  <edmx:Runtime>
+    <!-- SSDL content -->
+    <edmx:StorageModels>
+    <Schema Namespace="loggerBDModel.Store" Provider="System.Data.SqlClient" ProviderManifestToken="2012" Alias="Self" xmlns:store="http://schemas.microsoft.com/ado/2007/12/edm/EntityStoreSchemaGenerator" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm/ssdl">
+        <EntityType Name="genAccionesCat">
+          <Key>
+            <PropertyRef Name="codigoAccion" />
+          </Key>
+          <Property Name="codigoAccion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="120" />
+          <Property Name="estaActivo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="genControl">
+          <Key>
+            <PropertyRef Name="idcontrol" />
+          </Key>
+          <Property Name="idcontrol" Type="tinyint" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="texto" Type="varchar" MaxLength="80" />
+          <Property Name="estaActivo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="genFuncion">
+          <Key>
+            <PropertyRef Name="idFuncion" />
+          </Key>
+          <Property Name="idFuncion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" />
+          <Property Name="estaActivo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="genLlamada">
+          <Key>
+            <PropertyRef Name="idLlamada" />
+          </Key>
+          <Property Name="idLlamada" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="Nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="idVentana" Type="int" Nullable="false" />
+          <Property Name="estaActivo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="genPerfilUsuario">
+          <Key>
+            <PropertyRef Name="idPerfil" />
+          </Key>
+          <Property Name="idPerfil" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="120" />
+          <Property Name="idPermiso" Type="int" Nullable="false" />
+          <Property Name="estaActivo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="genPermisos">
+          <Key>
+            <PropertyRef Name="idPermiso" />
+          </Key>
+          <Property Name="idPermiso" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="idsubsistema" Type="int" Nullable="false" />
+          <Property Name="estaActivo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="genSubsistemas">
+          <Key>
+            <PropertyRef Name="idSubsistema" />
+          </Key>
+          <Property Name="idSubsistema" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="120" />
+          <Property Name="idVentanaArranque" Type="int" Nullable="false" />
+          <Property Name="estaActivo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="genUsuarios">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="nombreUsuario" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="nombre" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="primerApellido" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="segundoApellido" Type="varchar" MaxLength="50" />
+          <Property Name="numeroINE" Type="varchar" MaxLength="16" Nullable="false" />
+          <Property Name="telefono" Type="varchar" MaxLength="12" Nullable="false" />
+          <Property Name="contrasena" Type="varchar" MaxLength="50" Nullable="false" />
+          <Property Name="idPerfil" Type="int" Nullable="false" />
+          <Property Name="estaActivo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="genVentana">
+          <Key>
+            <PropertyRef Name="idVentana" />
+          </Key>
+          <Property Name="idVentana" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="120" />
+          <Property Name="idControl" Type="int" Nullable="false" />
+          <Property Name="estaActivo" Type="bit" Nullable="false" />
+        </EntityType>
+        <EntityType Name="regAcciones">
+          <Key>
+            <PropertyRef Name="idAccion" />
+          </Key>
+          <Property Name="idAccion" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="codigoAccion" Type="int" Nullable="false" />
+          <Property Name="idLlamada" Type="int" />
+          <Property Name="idFuncion" Type="int" />
+          <Property Name="tipoAccion" Type="tinyint" Nullable="false" />
+          <Property Name="fechaEjecucion" Type="date" Nullable="false" />
+        </EntityType>
+        <EntityType Name="regcontroles">
+          <Key>
+            <PropertyRef Name="idControl" />
+          </Key>
+          <Property Name="idControl" Type="int" StoreGeneratedPattern="Identity" Nullable="false" />
+          <Property Name="descripcion" Type="varchar" MaxLength="120" />
+          <Property Name="texto" Type="varchar" MaxLength="50" />
+          <Property Name="tipoInteraccion" Type="tinyint" Nullable="false" />
+          <Property Name="idAccion" Type="int" Nullable="false" />
+        </EntityType>
+        <Association Name="FK_genFuncion_regAcciones">
+          <End Role="genFuncion" Type="Self.genFuncion" Multiplicity="0..1" />
+          <End Role="regAcciones" Type="Self.regAcciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="genFuncion">
+              <PropertyRef Name="idFuncion" />
+            </Principal>
+            <Dependent Role="regAcciones">
+              <PropertyRef Name="idFuncion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_genLlamada_genVentana">
+          <End Role="genVentana" Type="Self.genVentana" Multiplicity="1" />
+          <End Role="genLlamada" Type="Self.genLlamada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="genVentana">
+              <PropertyRef Name="idVentana" />
+            </Principal>
+            <Dependent Role="genLlamada">
+              <PropertyRef Name="idVentana" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_genLlamada_regAcciones">
+          <End Role="genLlamada" Type="Self.genLlamada" Multiplicity="0..1" />
+          <End Role="regAcciones" Type="Self.regAcciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="genLlamada">
+              <PropertyRef Name="idLlamada" />
+            </Principal>
+            <Dependent Role="regAcciones">
+              <PropertyRef Name="idLlamada" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_genPerfilUsuario_genUsuarios">
+          <End Role="genPerfilUsuario" Type="Self.genPerfilUsuario" Multiplicity="1" />
+          <End Role="genUsuarios" Type="Self.genUsuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="genPerfilUsuario">
+              <PropertyRef Name="idPerfil" />
+            </Principal>
+            <Dependent Role="genUsuarios">
+              <PropertyRef Name="idPerfil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_genPermisos_genPerfilUsuario">
+          <End Role="genPermisos" Type="Self.genPermisos" Multiplicity="1" />
+          <End Role="genPerfilUsuario" Type="Self.genPerfilUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="genPermisos">
+              <PropertyRef Name="idPermiso" />
+            </Principal>
+            <Dependent Role="genPerfilUsuario">
+              <PropertyRef Name="idPermiso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_genSubsistemas_genPermisos">
+          <End Role="genSubsistemas" Type="Self.genSubsistemas" Multiplicity="1" />
+          <End Role="genPermisos" Type="Self.genPermisos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="genSubsistemas">
+              <PropertyRef Name="idSubsistema" />
+            </Principal>
+            <Dependent Role="genPermisos">
+              <PropertyRef Name="idsubsistema" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_genVentana_genSubsistemas">
+          <End Role="genVentana" Type="Self.genVentana" Multiplicity="1" />
+          <End Role="genSubsistemas" Type="Self.genSubsistemas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="genVentana">
+              <PropertyRef Name="idVentana" />
+            </Principal>
+            <Dependent Role="genSubsistemas">
+              <PropertyRef Name="idVentanaArranque" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_regAcciones_genAccionesCat">
+          <End Role="genAccionesCat" Type="Self.genAccionesCat" Multiplicity="1" />
+          <End Role="regAcciones" Type="Self.regAcciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="genAccionesCat">
+              <PropertyRef Name="codigoAccion" />
+            </Principal>
+            <Dependent Role="regAcciones">
+              <PropertyRef Name="codigoAccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_regAcciones_regAcciones">
+          <End Role="regAcciones" Type="Self.regAcciones" Multiplicity="1" />
+          <End Role="regAcciones1" Type="Self.regAcciones" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="regAcciones">
+              <PropertyRef Name="idAccion" />
+            </Principal>
+            <Dependent Role="regAcciones1">
+              <PropertyRef Name="idAccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_regAcciones_regcontroles">
+          <End Role="regAcciones" Type="Self.regAcciones" Multiplicity="1" />
+          <End Role="regcontroles" Type="Self.regcontroles" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="regAcciones">
+              <PropertyRef Name="idAccion" />
+            </Principal>
+            <Dependent Role="regcontroles">
+              <PropertyRef Name="idControl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_regcontroles_genControl">
+          <End Role="genControl" Type="Self.genControl" Multiplicity="1" />
+          <End Role="regcontroles" Type="Self.regcontroles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="genControl">
+              <PropertyRef Name="idcontrol" />
+            </Principal>
+            <Dependent Role="regcontroles">
+              <PropertyRef Name="tipoInteraccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_regControles_genVentana">
+          <End Role="regcontroles" Type="Self.regcontroles" Multiplicity="1" />
+          <End Role="genVentana" Type="Self.genVentana" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="regcontroles">
+              <PropertyRef Name="idControl" />
+            </Principal>
+            <Dependent Role="genVentana">
+              <PropertyRef Name="idControl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="loggerBDModelStoreContainer">
+          <EntitySet Name="genAccionesCat" EntityType="Self.genAccionesCat" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="genControl" EntityType="Self.genControl" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="genFuncion" EntityType="Self.genFuncion" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="genLlamada" EntityType="Self.genLlamada" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="genPerfilUsuario" EntityType="Self.genPerfilUsuario" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="genPermisos" EntityType="Self.genPermisos" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="genSubsistemas" EntityType="Self.genSubsistemas" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="genUsuarios" EntityType="Self.genUsuarios" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="genVentana" EntityType="Self.genVentana" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="regAcciones" EntityType="Self.regAcciones" Schema="dbo" store:Type="Tables" />
+          <EntitySet Name="regcontroles" EntityType="Self.regcontroles" Schema="dbo" store:Type="Tables" />
+          <AssociationSet Name="FK_genFuncion_regAcciones" Association="Self.FK_genFuncion_regAcciones">
+            <End Role="genFuncion" EntitySet="genFuncion" />
+            <End Role="regAcciones" EntitySet="regAcciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_genLlamada_genVentana" Association="Self.FK_genLlamada_genVentana">
+            <End Role="genVentana" EntitySet="genVentana" />
+            <End Role="genLlamada" EntitySet="genLlamada" />
+          </AssociationSet>
+          <AssociationSet Name="FK_genLlamada_regAcciones" Association="Self.FK_genLlamada_regAcciones">
+            <End Role="genLlamada" EntitySet="genLlamada" />
+            <End Role="regAcciones" EntitySet="regAcciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_genPerfilUsuario_genUsuarios" Association="Self.FK_genPerfilUsuario_genUsuarios">
+            <End Role="genPerfilUsuario" EntitySet="genPerfilUsuario" />
+            <End Role="genUsuarios" EntitySet="genUsuarios" />
+          </AssociationSet>
+          <AssociationSet Name="FK_genPermisos_genPerfilUsuario" Association="Self.FK_genPermisos_genPerfilUsuario">
+            <End Role="genPermisos" EntitySet="genPermisos" />
+            <End Role="genPerfilUsuario" EntitySet="genPerfilUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_genSubsistemas_genPermisos" Association="Self.FK_genSubsistemas_genPermisos">
+            <End Role="genSubsistemas" EntitySet="genSubsistemas" />
+            <End Role="genPermisos" EntitySet="genPermisos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_genVentana_genSubsistemas" Association="Self.FK_genVentana_genSubsistemas">
+            <End Role="genVentana" EntitySet="genVentana" />
+            <End Role="genSubsistemas" EntitySet="genSubsistemas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_regAcciones_genAccionesCat" Association="Self.FK_regAcciones_genAccionesCat">
+            <End Role="genAccionesCat" EntitySet="genAccionesCat" />
+            <End Role="regAcciones" EntitySet="regAcciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_regAcciones_regAcciones" Association="Self.FK_regAcciones_regAcciones">
+            <End Role="regAcciones" EntitySet="regAcciones" />
+            <End Role="regAcciones1" EntitySet="regAcciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_regAcciones_regcontroles" Association="Self.FK_regAcciones_regcontroles">
+            <End Role="regAcciones" EntitySet="regAcciones" />
+            <End Role="regcontroles" EntitySet="regcontroles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_regcontroles_genControl" Association="Self.FK_regcontroles_genControl">
+            <End Role="genControl" EntitySet="genControl" />
+            <End Role="regcontroles" EntitySet="regcontroles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_regControles_genVentana" Association="Self.FK_regControles_genVentana">
+            <End Role="regcontroles" EntitySet="regcontroles" />
+            <End Role="genVentana" EntitySet="genVentana" />
+          </AssociationSet>
+        </EntityContainer>
+      </Schema></edmx:StorageModels>
+    <!-- CSDL content -->
+    <edmx:ConceptualModels>
+      <Schema Namespace="loggerBDModel" Alias="Self" annotation:UseStrongSpatialTypes="false" xmlns:annotation="http://schemas.microsoft.com/ado/2009/02/edm/annotation" xmlns:customannotation="http://schemas.microsoft.com/ado/2013/11/edm/customannotation" xmlns="http://schemas.microsoft.com/ado/2009/11/edm">
+        <EntityType Name="genAccionesCat">
+          <Key>
+            <PropertyRef Name="codigoAccion" />
+          </Key>
+          <Property Name="codigoAccion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="estaActivo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="regAcciones" Relationship="Self.FK_regAcciones_genAccionesCat" FromRole="genAccionesCat" ToRole="regAcciones" />
+        </EntityType>
+        <EntityType Name="genFuncion">
+          <Key>
+            <PropertyRef Name="idFuncion" />
+          </Key>
+          <Property Name="idFuncion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="estaActivo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="regAcciones" Relationship="Self.FK_genFuncion_regAcciones" FromRole="genFuncion" ToRole="regAcciones" />
+        </EntityType>
+        <EntityType Name="genLlamada">
+          <Key>
+            <PropertyRef Name="idLlamada" />
+          </Key>
+          <Property Name="idLlamada" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="Nombre" Type="String" MaxLength="50" FixedLength="false" Unicode="false" Nullable="false" />
+          <Property Name="estaActivo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="regAcciones" Relationship="Self.FK_genLlamada_regAcciones" FromRole="genLlamada" ToRole="regAcciones" />
+          <Property Name="idVentana" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="genVentana" Relationship="loggerBDModel.FK_genLlamada_genVentana" FromRole="genLlamada" ToRole="genVentana" />
+        </EntityType>
+        <EntityType Name="genPerfilUsuario">
+          <Key>
+            <PropertyRef Name="idPerfil" />
+          </Key>
+          <Property Name="idPerfil" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="idPermiso" Type="Int32" Nullable="false" />
+          <Property Name="estaActivo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="genPermisos" Relationship="Self.FK_genPermisos_genPerfilUsuario" FromRole="genPerfilUsuario" ToRole="genPermisos" />
+          <NavigationProperty Name="genUsuarios" Relationship="loggerBDModel.FK_genPerfilUsuario_genUsuarios" FromRole="genPerfilUsuario" ToRole="genUsuarios" />
+        </EntityType>
+        <EntityType Name="genPermisos">
+          <Key>
+            <PropertyRef Name="idPermiso" />
+          </Key>
+          <Property Name="idPermiso" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="idsubsistema" Type="Int32" Nullable="false" />
+          <Property Name="estaActivo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="genPerfilUsuario" Relationship="Self.FK_genPermisos_genPerfilUsuario" FromRole="genPermisos" ToRole="genPerfilUsuario" />
+          <NavigationProperty Name="genSubsistemas" Relationship="Self.FK_genSubsistemas_genPermisos" FromRole="genPermisos" ToRole="genSubsistemas" />
+        </EntityType>
+        <EntityType Name="genSubsistemas">
+          <Key>
+            <PropertyRef Name="idSubsistema" />
+          </Key>
+          <Property Name="idSubsistema" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="idVentanaArranque" Type="Int32" Nullable="false" />
+          <Property Name="estaActivo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="genPermisos" Relationship="Self.FK_genSubsistemas_genPermisos" FromRole="genSubsistemas" ToRole="genPermisos" />
+          <NavigationProperty Name="genVentana" Relationship="Self.FK_genVentana_genSubsistemas" FromRole="genSubsistemas" ToRole="genVentana" />
+        </EntityType>
+        <EntityType Name="genVentana">
+          <Key>
+            <PropertyRef Name="idVentana" />
+          </Key>
+          <Property Name="idVentana" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="idControl" Type="Int32" Nullable="false" />
+          <Property Name="estaActivo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="genSubsistemas" Relationship="Self.FK_genVentana_genSubsistemas" FromRole="genVentana" ToRole="genSubsistemas" />
+          <NavigationProperty Name="genLlamada" Relationship="loggerBDModel.FK_genLlamada_genVentana" FromRole="genVentana" ToRole="genLlamada" />
+          <NavigationProperty Name="regcontroles" Relationship="loggerBDModel.FK_regControles_genVentana" FromRole="genVentana" ToRole="regcontroles" />
+        </EntityType>
+        <EntityType Name="regAcciones">
+          <Key>
+            <PropertyRef Name="idAccion" />
+          </Key>
+          <Property Name="idAccion" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="codigoAccion" Type="Int32" Nullable="false" />
+          <Property Name="idLlamada" Type="Int32" />
+          <Property Name="idFuncion" Type="Int32" />
+          <Property Name="tipoAccion" Type="Byte" Nullable="false" />
+          <Property Name="fechaEjecucion" Type="DateTime" Nullable="false" Precision="0" />
+          <NavigationProperty Name="genAccionesCat" Relationship="Self.FK_regAcciones_genAccionesCat" FromRole="regAcciones" ToRole="genAccionesCat" />
+          <NavigationProperty Name="genFuncion" Relationship="Self.FK_genFuncion_regAcciones" FromRole="regAcciones" ToRole="genFuncion" />
+          <NavigationProperty Name="genLlamada" Relationship="Self.FK_genLlamada_regAcciones" FromRole="regAcciones" ToRole="genLlamada" />
+          <NavigationProperty Name="regAcciones1" Relationship="Self.FK_regAcciones_regAcciones" FromRole="regAcciones" ToRole="regAcciones1" />
+          <NavigationProperty Name="regAcciones2" Relationship="Self.FK_regAcciones_regAcciones" FromRole="regAcciones1" ToRole="regAcciones" />
+          <NavigationProperty Name="regcontroles" Relationship="loggerBDModel.FK_regAcciones_regcontroles" FromRole="regAcciones" ToRole="regcontroles" />
+        </EntityType>
+        <Association Name="FK_regAcciones_genAccionesCat">
+          <End Role="genAccionesCat" Type="Self.genAccionesCat" Multiplicity="1" />
+          <End Role="regAcciones" Type="Self.regAcciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="genAccionesCat">
+              <PropertyRef Name="codigoAccion" />
+            </Principal>
+            <Dependent Role="regAcciones">
+              <PropertyRef Name="codigoAccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_genFuncion_regAcciones">
+          <End Role="genFuncion" Type="Self.genFuncion" Multiplicity="0..1" />
+          <End Role="regAcciones" Type="Self.regAcciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="genFuncion">
+              <PropertyRef Name="idFuncion" />
+            </Principal>
+            <Dependent Role="regAcciones">
+              <PropertyRef Name="idFuncion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_genLlamada_regAcciones">
+          <End Role="genLlamada" Type="Self.genLlamada" Multiplicity="0..1" />
+          <End Role="regAcciones" Type="Self.regAcciones" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="genLlamada">
+              <PropertyRef Name="idLlamada" />
+            </Principal>
+            <Dependent Role="regAcciones">
+              <PropertyRef Name="idLlamada" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_genPermisos_genPerfilUsuario">
+          <End Role="genPermisos" Type="Self.genPermisos" Multiplicity="1" />
+          <End Role="genPerfilUsuario" Type="Self.genPerfilUsuario" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="genPermisos">
+              <PropertyRef Name="idPermiso" />
+            </Principal>
+            <Dependent Role="genPerfilUsuario">
+              <PropertyRef Name="idPermiso" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_genSubsistemas_genPermisos">
+          <End Role="genSubsistemas" Type="Self.genSubsistemas" Multiplicity="1" />
+          <End Role="genPermisos" Type="Self.genPermisos" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="genSubsistemas">
+              <PropertyRef Name="idSubsistema" />
+            </Principal>
+            <Dependent Role="genPermisos">
+              <PropertyRef Name="idsubsistema" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_genVentana_genSubsistemas">
+          <End Role="genVentana" Type="Self.genVentana" Multiplicity="1" />
+          <End Role="genSubsistemas" Type="Self.genSubsistemas" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="genVentana">
+              <PropertyRef Name="idVentana" />
+            </Principal>
+            <Dependent Role="genSubsistemas">
+              <PropertyRef Name="idVentanaArranque" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_regAcciones_regAcciones">
+          <End Role="regAcciones" Type="Self.regAcciones" Multiplicity="1" />
+          <End Role="regAcciones1" Type="Self.regAcciones" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="regAcciones">
+              <PropertyRef Name="idAccion" />
+            </Principal>
+            <Dependent Role="regAcciones1">
+              <PropertyRef Name="idAccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityContainer Name="loggerBDEntities" annotation:LazyLoadingEnabled="true">
+          <EntitySet Name="genAccionesCat" EntityType="Self.genAccionesCat" />
+          <EntitySet Name="genFuncion" EntityType="Self.genFuncion" />
+          <EntitySet Name="genLlamada" EntityType="Self.genLlamada" />
+          <EntitySet Name="genPerfilUsuario" EntityType="Self.genPerfilUsuario" />
+          <EntitySet Name="genPermisos" EntityType="Self.genPermisos" />
+          <EntitySet Name="genSubsistemas" EntityType="Self.genSubsistemas" />
+          <EntitySet Name="genVentana" EntityType="Self.genVentana" />
+          <EntitySet Name="regAcciones" EntityType="Self.regAcciones" />
+          <AssociationSet Name="FK_regAcciones_genAccionesCat" Association="Self.FK_regAcciones_genAccionesCat">
+            <End Role="genAccionesCat" EntitySet="genAccionesCat" />
+            <End Role="regAcciones" EntitySet="regAcciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_genFuncion_regAcciones" Association="Self.FK_genFuncion_regAcciones">
+            <End Role="genFuncion" EntitySet="genFuncion" />
+            <End Role="regAcciones" EntitySet="regAcciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_genLlamada_regAcciones" Association="Self.FK_genLlamada_regAcciones">
+            <End Role="genLlamada" EntitySet="genLlamada" />
+            <End Role="regAcciones" EntitySet="regAcciones" />
+          </AssociationSet>
+          <AssociationSet Name="FK_genPermisos_genPerfilUsuario" Association="Self.FK_genPermisos_genPerfilUsuario">
+            <End Role="genPermisos" EntitySet="genPermisos" />
+            <End Role="genPerfilUsuario" EntitySet="genPerfilUsuario" />
+          </AssociationSet>
+          <AssociationSet Name="FK_genSubsistemas_genPermisos" Association="Self.FK_genSubsistemas_genPermisos">
+            <End Role="genSubsistemas" EntitySet="genSubsistemas" />
+            <End Role="genPermisos" EntitySet="genPermisos" />
+          </AssociationSet>
+          <AssociationSet Name="FK_genVentana_genSubsistemas" Association="Self.FK_genVentana_genSubsistemas">
+            <End Role="genVentana" EntitySet="genVentana" />
+            <End Role="genSubsistemas" EntitySet="genSubsistemas" />
+          </AssociationSet>
+          <AssociationSet Name="FK_regAcciones_regAcciones" Association="Self.FK_regAcciones_regAcciones">
+            <End Role="regAcciones" EntitySet="regAcciones" />
+            <End Role="regAcciones1" EntitySet="regAcciones" />
+          </AssociationSet>
+          <EntitySet Name="genUsuarios" EntityType="loggerBDModel.genUsuarios" />
+          <AssociationSet Name="FK_genPerfilUsuario_genUsuarios" Association="loggerBDModel.FK_genPerfilUsuario_genUsuarios">
+            <End Role="genPerfilUsuario" EntitySet="genPerfilUsuario" />
+            <End Role="genUsuarios" EntitySet="genUsuarios" />
+          </AssociationSet>
+          <EntitySet Name="genControl" EntityType="loggerBDModel.genControl" />
+          <EntitySet Name="regcontroles" EntityType="loggerBDModel.regcontroles" />
+          <AssociationSet Name="FK_regcontroles_genControl" Association="loggerBDModel.FK_regcontroles_genControl">
+            <End Role="genControl" EntitySet="genControl" />
+            <End Role="regcontroles" EntitySet="regcontroles" />
+          </AssociationSet>
+          <AssociationSet Name="FK_genLlamada_genVentana" Association="loggerBDModel.FK_genLlamada_genVentana">
+            <End Role="genVentana" EntitySet="genVentana" />
+            <End Role="genLlamada" EntitySet="genLlamada" />
+          </AssociationSet>
+          <AssociationSet Name="FK_regControles_genVentana" Association="loggerBDModel.FK_regControles_genVentana">
+            <End Role="regcontroles" EntitySet="regcontroles" />
+            <End Role="genVentana" EntitySet="genVentana" />
+          </AssociationSet>
+          <AssociationSet Name="FK_regAcciones_regcontroles" Association="loggerBDModel.FK_regAcciones_regcontroles">
+            <End Role="regAcciones" EntitySet="regAcciones" />
+            <End Role="regcontroles" EntitySet="regcontroles" />
+          </AssociationSet>
+        </EntityContainer>
+        <EntityType Name="genUsuarios">
+          <Key>
+            <PropertyRef Name="idUsuario" />
+          </Key>
+          <Property Name="idUsuario" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="nombreUsuario" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="nombre" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="primerApellido" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="segundoApellido" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="numeroINE" Type="String" Nullable="false" MaxLength="16" FixedLength="false" Unicode="false" />
+          <Property Name="telefono" Type="String" Nullable="false" MaxLength="12" FixedLength="false" Unicode="false" />
+          <Property Name="contrasena" Type="String" Nullable="false" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="idPerfil" Type="Int32" Nullable="false" />
+          <Property Name="estaActivo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="genPerfilUsuario" Relationship="loggerBDModel.FK_genPerfilUsuario_genUsuarios" FromRole="genUsuarios" ToRole="genPerfilUsuario" />
+        </EntityType>
+        <Association Name="FK_genPerfilUsuario_genUsuarios">
+          <End Type="loggerBDModel.genPerfilUsuario" Role="genPerfilUsuario" Multiplicity="1" />
+          <End Type="loggerBDModel.genUsuarios" Role="genUsuarios" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="genPerfilUsuario">
+              <PropertyRef Name="idPerfil" />
+            </Principal>
+            <Dependent Role="genUsuarios">
+              <PropertyRef Name="idPerfil" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <EntityType Name="genControl">
+          <Key>
+            <PropertyRef Name="idcontrol" />
+          </Key>
+          <Property Name="idcontrol" Type="Byte" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="texto" Type="String" MaxLength="80" FixedLength="false" Unicode="false" />
+          <Property Name="estaActivo" Type="Boolean" Nullable="false" />
+          <NavigationProperty Name="regcontroles" Relationship="loggerBDModel.FK_regcontroles_genControl" FromRole="genControl" ToRole="regcontroles" />
+        </EntityType>
+        <EntityType Name="regcontroles">
+          <Key>
+            <PropertyRef Name="idControl" />
+          </Key>
+          <Property Name="idControl" Type="Int32" Nullable="false" annotation:StoreGeneratedPattern="Identity" />
+          <Property Name="descripcion" Type="String" MaxLength="120" FixedLength="false" Unicode="false" />
+          <Property Name="texto" Type="String" MaxLength="50" FixedLength="false" Unicode="false" />
+          <Property Name="tipoInteraccion" Type="Byte" Nullable="false" />
+          <Property Name="idAccion" Type="Int32" Nullable="false" />
+          <NavigationProperty Name="genControl" Relationship="loggerBDModel.FK_regcontroles_genControl" FromRole="regcontroles" ToRole="genControl" />
+          <NavigationProperty Name="genVentana" Relationship="loggerBDModel.FK_regControles_genVentana" FromRole="regcontroles" ToRole="genVentana" />
+          <NavigationProperty Name="regAcciones" Relationship="loggerBDModel.FK_regAcciones_regcontroles" FromRole="regcontroles" ToRole="regAcciones" />
+        </EntityType>
+        <Association Name="FK_regcontroles_genControl">
+          <End Type="loggerBDModel.genControl" Role="genControl" Multiplicity="1" />
+          <End Type="loggerBDModel.regcontroles" Role="regcontroles" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="genControl">
+              <PropertyRef Name="idcontrol" />
+            </Principal>
+            <Dependent Role="regcontroles">
+              <PropertyRef Name="tipoInteraccion" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_genLlamada_genVentana">
+          <End Type="loggerBDModel.genVentana" Role="genVentana" Multiplicity="1" />
+          <End Type="loggerBDModel.genLlamada" Role="genLlamada" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="genVentana">
+              <PropertyRef Name="idVentana" />
+            </Principal>
+            <Dependent Role="genLlamada">
+              <PropertyRef Name="idVentana" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_regControles_genVentana">
+          <End Type="loggerBDModel.regcontroles" Role="regcontroles" Multiplicity="1" />
+          <End Type="loggerBDModel.genVentana" Role="genVentana" Multiplicity="*" />
+          <ReferentialConstraint>
+            <Principal Role="regcontroles">
+              <PropertyRef Name="idControl" />
+            </Principal>
+            <Dependent Role="genVentana">
+              <PropertyRef Name="idControl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+        <Association Name="FK_regAcciones_regcontroles">
+          <End Type="loggerBDModel.regAcciones" Role="regAcciones" Multiplicity="1" />
+          <End Type="loggerBDModel.regcontroles" Role="regcontroles" Multiplicity="0..1" />
+          <ReferentialConstraint>
+            <Principal Role="regAcciones">
+              <PropertyRef Name="idAccion" />
+            </Principal>
+            <Dependent Role="regcontroles">
+              <PropertyRef Name="idControl" />
+            </Dependent>
+          </ReferentialConstraint>
+        </Association>
+      </Schema>
+    </edmx:ConceptualModels>
+    <!-- C-S mapping content -->
+    <edmx:Mappings>
+      <Mapping Space="C-S" xmlns="http://schemas.microsoft.com/ado/2009/11/mapping/cs">
+        <EntityContainerMapping StorageEntityContainer="loggerBDModelStoreContainer" CdmEntityContainer="loggerBDEntities">
+          <EntitySetMapping Name="genAccionesCat">
+            <EntityTypeMapping TypeName="loggerBDModel.genAccionesCat">
+              <MappingFragment StoreEntitySet="genAccionesCat">
+                <ScalarProperty Name="codigoAccion" ColumnName="codigoAccion" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="estaActivo" ColumnName="estaActivo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="genFuncion">
+            <EntityTypeMapping TypeName="loggerBDModel.genFuncion">
+              <MappingFragment StoreEntitySet="genFuncion">
+                <ScalarProperty Name="idFuncion" ColumnName="idFuncion" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="estaActivo" ColumnName="estaActivo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="genLlamada">
+            <EntityTypeMapping TypeName="loggerBDModel.genLlamada">
+              <MappingFragment StoreEntitySet="genLlamada">
+                <ScalarProperty Name="idVentana" ColumnName="idVentana" />
+                <ScalarProperty Name="idLlamada" ColumnName="idLlamada" />
+                <ScalarProperty Name="Nombre" ColumnName="Nombre" />
+                <ScalarProperty Name="estaActivo" ColumnName="estaActivo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="genPerfilUsuario">
+            <EntityTypeMapping TypeName="loggerBDModel.genPerfilUsuario">
+              <MappingFragment StoreEntitySet="genPerfilUsuario">
+                <ScalarProperty Name="idPerfil" ColumnName="idPerfil" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="idPermiso" ColumnName="idPermiso" />
+                <ScalarProperty Name="estaActivo" ColumnName="estaActivo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="genPermisos">
+            <EntityTypeMapping TypeName="loggerBDModel.genPermisos">
+              <MappingFragment StoreEntitySet="genPermisos">
+                <ScalarProperty Name="idPermiso" ColumnName="idPermiso" />
+                <ScalarProperty Name="idsubsistema" ColumnName="idsubsistema" />
+                <ScalarProperty Name="estaActivo" ColumnName="estaActivo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="genSubsistemas">
+            <EntityTypeMapping TypeName="loggerBDModel.genSubsistemas">
+              <MappingFragment StoreEntitySet="genSubsistemas">
+                <ScalarProperty Name="idSubsistema" ColumnName="idSubsistema" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="idVentanaArranque" ColumnName="idVentanaArranque" />
+                <ScalarProperty Name="estaActivo" ColumnName="estaActivo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="genVentana">
+            <EntityTypeMapping TypeName="loggerBDModel.genVentana">
+              <MappingFragment StoreEntitySet="genVentana">
+                <ScalarProperty Name="idVentana" ColumnName="idVentana" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="idControl" ColumnName="idControl" />
+                <ScalarProperty Name="estaActivo" ColumnName="estaActivo" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="regAcciones">
+            <EntityTypeMapping TypeName="loggerBDModel.regAcciones">
+              <MappingFragment StoreEntitySet="regAcciones">
+                <ScalarProperty Name="idAccion" ColumnName="idAccion" />
+                <ScalarProperty Name="codigoAccion" ColumnName="codigoAccion" />
+                <ScalarProperty Name="idLlamada" ColumnName="idLlamada" />
+                <ScalarProperty Name="idFuncion" ColumnName="idFuncion" />
+                <ScalarProperty Name="tipoAccion" ColumnName="tipoAccion" />
+                <ScalarProperty Name="fechaEjecucion" ColumnName="fechaEjecucion" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="genUsuarios">
+            <EntityTypeMapping TypeName="loggerBDModel.genUsuarios">
+              <MappingFragment StoreEntitySet="genUsuarios">
+                <ScalarProperty Name="estaActivo" ColumnName="estaActivo" />
+                <ScalarProperty Name="idPerfil" ColumnName="idPerfil" />
+                <ScalarProperty Name="contrasena" ColumnName="contrasena" />
+                <ScalarProperty Name="telefono" ColumnName="telefono" />
+                <ScalarProperty Name="numeroINE" ColumnName="numeroINE" />
+                <ScalarProperty Name="segundoApellido" ColumnName="segundoApellido" />
+                <ScalarProperty Name="primerApellido" ColumnName="primerApellido" />
+                <ScalarProperty Name="nombre" ColumnName="nombre" />
+                <ScalarProperty Name="nombreUsuario" ColumnName="nombreUsuario" />
+                <ScalarProperty Name="idUsuario" ColumnName="idUsuario" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="genControl">
+            <EntityTypeMapping TypeName="loggerBDModel.genControl">
+              <MappingFragment StoreEntitySet="genControl">
+                <ScalarProperty Name="estaActivo" ColumnName="estaActivo" />
+                <ScalarProperty Name="texto" ColumnName="texto" />
+                <ScalarProperty Name="idcontrol" ColumnName="idcontrol" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+          <EntitySetMapping Name="regcontroles">
+            <EntityTypeMapping TypeName="loggerBDModel.regcontroles">
+              <MappingFragment StoreEntitySet="regcontroles">
+                <ScalarProperty Name="idAccion" ColumnName="idAccion" />
+                <ScalarProperty Name="tipoInteraccion" ColumnName="tipoInteraccion" />
+                <ScalarProperty Name="texto" ColumnName="texto" />
+                <ScalarProperty Name="descripcion" ColumnName="descripcion" />
+                <ScalarProperty Name="idControl" ColumnName="idControl" />
+              </MappingFragment>
+            </EntityTypeMapping>
+          </EntitySetMapping>
+        </EntityContainerMapping>
+      </Mapping>
+    </edmx:Mappings>
+  </edmx:Runtime>
+  <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <Connection>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="MetadataArtifactProcessing" Value="EmbedInOutputAssembly" />
+      </DesignerInfoPropertySet>
+    </Connection>
+    <Options>
+      <DesignerInfoPropertySet>
+        <DesignerProperty Name="ValidateOnBuild" Value="true" />
+        <DesignerProperty Name="EnablePluralization" Value="false" />
+        <DesignerProperty Name="IncludeForeignKeysInModel" Value="true" />
+        <DesignerProperty Name="UseLegacyProvider" Value="false" />
+        <DesignerProperty Name="CodeGenerationStrategy" Value="Ninguno" />
+      </DesignerInfoPropertySet>
+    </Options>
+    <!-- Diagram content (shape and connector positions) -->
+    <Diagrams></Diagrams>
+  </Designer>
+</edmx:Edmx>

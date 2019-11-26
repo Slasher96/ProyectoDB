@@ -1,0 +1,76 @@
+﻿@model MagicalLogger.Models.Usuarios.LoginModel
+@{
+    ViewBag.Title = "login";
+}
+
+<!-- Head -->
+<head>
+
+    <title>Techno Login Form A Flat Responsive Widget Template :: W3layouts</title>
+
+    <!-- Meta-Tags -->
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+    <meta name="keywords" content="Techno Login Form Responsive, Login Form Web Template, Flat Pricing Tables, Flat Drop-Downs, Sign-Up Web Templates, Flat Web Templates, Login Sign-up Responsive Web Template, Smartphone Compatible Web Template, Free Web Designs for Nokia, Samsung, LG, Sony Ericsson, Motorola Web Design">
+    <script type="application/x-javascript"> addEventListener("load", function() { setTimeout(hideURLbar, 0); }, false); function hideURLbar(){ window.scrollTo(0,1); } </script>
+    <!-- //Meta-Tags -->
+    <!-- Custom-Style-Sheet -->
+    <!-- Index-Page-CSS -->
+    <link rel="stylesheet" href="@Url.Content("~/CSS/style.css")" type="text/css" media="all">
+    <!-- //Custom-Style-Sheet -->
+    <!-- Fonts -->
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Roboto:100,300,400,500,700,900" type="text/css" media="all">
+    <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Montserrat:400,700" type="text/css" media="all">
+    <!-- //Fonts -->
+
+</head>
+<!-- //Head -->
+<!-- Body -->
+<body>
+
+    <h1>TECHNO LOGIN </h1>
+
+    <div class="containerw3layouts-agileits">
+
+        <div class="w3imageaits">
+            <img src="@Url.Content("~/Resources/MagicalLoggerLogo.png")" alt="">
+        </div>
+
+        <div class="aitsloginwthree w3layouts agileits">
+            <h2>Iniciar Sesión </h2>
+            <p style="color:red">
+                @Html.Raw(ViewData["Error en Login"])
+            </p>
+            @using (Html.BeginForm())
+            {
+                @Html.LabelFor(a => a.NombreUsuario)
+                @Html.TextBoxFor(a => a.NombreUsuario)<br />
+                <p style="color:red">@Html.ValidationMessageFor(a => a.NombreUsuario)</p>
+                <br />
+                @Html.LabelFor(a => a.Contrasena)
+                @Html.PasswordFor(a => a.Contrasena)<br />
+                <p style="color:red">@Html.ValidationMessageFor(a => a.Contrasena)</p>
+                <ul class="tick w3layouts agileinfo">
+                    <li>
+                        <a href="#">¿Olvido su contraseña?</a>
+                    </li>
+                    <li>
+                        <a href="@Url.Action("NewUser","Index")">¿Es un nuevo Usuario?</a>
+                    </li>
+                </ul>
+                <div class="send-button wthree agileits">
+                    <input type="submit" value="Ingresar">
+                </div>
+            }
+        </div>
+
+        <div class="clear"></div>
+
+    </div>
+
+    <div class="w3lsfooteragileits">
+        <p> &copy; 2017 Techno Login Form. All Rights Reserved | Design by <a href="http://w3layouts.com" target="=_blank">W3layouts</a></p>
+    </div>
+
+</body>
+<!-- //Body -->

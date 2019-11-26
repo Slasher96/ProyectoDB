@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<edmx:Edmx Version="3.0" xmlns:edmx="http://schemas.microsoft.com/ado/2009/11/edmx">
+ <!-- EF Designer content (DO NOT EDIT MANUALLY BELOW HERE) -->
+  <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
+    <!-- Diagram content (shape and connector positions) -->
+    <edmx:Diagrams>
+      <Diagram DiagramId="b3dd3d86dd1d4bc1b1d32f7ef79fad58" Name="Diagram1">
+        <EntityTypeShape EntityType="loggerBDModel.genAccionesCat" Width="1.5" PointX="0.75" PointY="1.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="loggerBDModel.genFuncion" Width="1.5" PointX="0.75" PointY="5.25" IsExpanded="true" />
+        <EntityTypeShape EntityType="loggerBDModel.genLlamada" Width="1.5" PointX="0.75" PointY="7.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="loggerBDModel.genPerfilUsuario" Width="1.5" PointX="14.25" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="loggerBDModel.genPermisos" Width="1.5" PointX="12" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="loggerBDModel.genSubsistemas" Width="1.5" PointX="9.75" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="loggerBDModel.genVentana" Width="1.5" PointX="7.5" PointY="1.625" IsExpanded="true" />
+        <EntityTypeShape EntityType="loggerBDModel.regAcciones" Width="1.5" PointX="3.75" PointY="0.5" IsExpanded="true" />
+        <AssociationConnector Association="loggerBDModel.FK_regAcciones_genAccionesCat" ManuallyRouted="false" />
+        <AssociationConnector Association="loggerBDModel.FK_genFuncion_regAcciones" ManuallyRouted="false" />
+        <AssociationConnector Association="loggerBDModel.FK_genLlamada_regAcciones" ManuallyRouted="false" />
+        <AssociationConnector Association="loggerBDModel.FK_genPermisos_genPerfilUsuario" ManuallyRouted="false" />
+        <AssociationConnector Association="loggerBDModel.FK_genSubsistemas_genPermisos" ManuallyRouted="false" />
+        <AssociationConnector Association="loggerBDModel.FK_genVentana_genSubsistemas" ManuallyRouted="false" />
+        <AssociationConnector Association="loggerBDModel.FK_regAcciones_regAcciones" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="loggerBDModel.genUsuarios" Width="1.5" PointX="16.5" PointY="1.125" />
+        <AssociationConnector Association="loggerBDModel.FK_genPerfilUsuario_genUsuarios" />
+        <EntityTypeShape EntityType="loggerBDModel.genControl" Width="1.5" PointX="3" PointY="10.875" />
+        <EntityTypeShape EntityType="loggerBDModel.regcontroles" Width="1.5" PointX="5.25" PointY="10.5" />
+        <AssociationConnector Association="loggerBDModel.FK_regcontroles_genControl" />
+        <AssociationConnector Association="loggerBDModel.FK_genLlamada_genVentana" />
+        <AssociationConnector Association="loggerBDModel.FK_regControles_genVentana" />
+        <AssociationConnector Association="loggerBDModel.FK_regAcciones_regcontroles" />
+      </Diagram>
+    </edmx:Diagrams>
+  </edmx:Designer>
+</edmx:Edmx>
