@@ -14,7 +14,7 @@ namespace MagicalLogger.Models
 
         public const int item = 2;
 
-        MainViewModel()
+        public MainViewModel()
         {
             foreach (var item in new loggerBDEntities().genSubsistemas.Where(a => a.estaActivo).ToList())
             {
@@ -22,7 +22,8 @@ namespace MagicalLogger.Models
                 {
                     IdSubsistema = item.idSubsistema,
                     Descripcion = item.descripcion,
-                    EstaActivo = item.estaActivo
+                    EstaActivo = item.estaActivo,
+                    ListaVentanas = new VentanaModel().GetVentanasList()
                 });
             }
         }
@@ -44,5 +45,25 @@ namespace MagicalLogger.Models
         [Required(ErrorMessage = "Por favor seleccione un control")]
         [DisplayName("Control")]
         public Models.Controles.ControlesModel Control { get; set; }
+
+
+
+        public List<SubsistemaModel> GetListaSubistemas()
+        {
+            using (var context = new loggerBDEntities())
+            {
+                var listasubsistemas = new List<SubsistemaModel>();
+                foreach (var item in context.genSubsistemas.Where(a => a.estaActivo))
+                {
+                    listasubsistemas.Add(new SubsistemaModel
+                    {
+                        IdSubsistema = item.idSubsistema,
+                        Descripcion = item.descripcion,
+
+                    });
+                }
+                return listasubsistemas;
+            }
+        }
     }
 }

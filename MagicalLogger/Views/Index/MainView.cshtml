@@ -4,7 +4,14 @@
 }
 
 <!DOCTYPE html>
-
+@{
+    // se llena la lista de subsistemas para la carga inicial
+    List<SelectListItem> listItems = new List<SelectListItem>();
+    foreach (var item in Model.ListaSubsistemas)
+    {
+        listItems.Add(new SelectListItem { Text = item.Descripcion, Value = item.IdSubsistema.ToString() });
+    }
+}
 <html lang="es-mx">
 <head>
     <title>Agregar Usuario</title>    <!-- cambiar por el titulo de la ventana actual -->
@@ -31,29 +38,29 @@
     <div class="mid-cls">
         @using (Html.BeginForm())
         {
-        <div class="main">
-            <div class="icon-head-wthree">
-                <div class="images-headder">
-                    <div class="wrap-custom-file">
-                        <input type="file" name="image1" id="image1" accept=".gif, .jpg, .png" />
-                        <label for="image1">
-                            <span><img src="images/t1.jpg" alt="" class="image-fluid"></span>
-                            <span class="fas fa-camera-retro"></span>
-                        </label>
+            <div class="main">
+                <div class="icon-head-wthree">
+                    <div class="images-headder">
+                        <div class="wrap-custom-file">
+                            <input type="file" name="image1" id="image1" accept=".gif, .jpg, .png" />
+                            <label for="image1">
+                                <span><img src="images/t1.jpg" alt="" class="image-fluid"></span>
+                                <span class="fas fa-camera-retro"></span>
+                            </label>
+                        </div>
                     </div>
                 </div>
+                <div class="form-right-w3ls ">
+                    @Html.LabelFor(a => a.Subsistema)
+                    @Html.DropDownListFor(a => a.Subsistema, listItems, "--Seleccionar--")<br />
+                    <p style="color:red">@Html.ValidationMessageFor(a => a.Subsistema)</p>
+                    <div class="clear"></div>
+                </div>
+                <div class="btnn">
+                    <button type="submit">Ejecutar</button><br>
+                    <div class="clear"></div>
+                </div>
             </div>
-            <div class="form-right-w3ls ">
-                @Html.LabelFor(a => a.Subsistema)
-                @Html.DropDownListFor(a => a.Subsistema, listItems, "--Seleccionar--")<br />
-                <p style="color:red">@Html.ValidationMessageFor(a => a.Subsistema)</p>
-                <div class="clear"></div>
-            </div>
-            <div class="btnn">
-                <button type="submit">Ejecutar</button><br>
-                <div class="clear"></div>
-            </div>
-        </div>
         }
     </div>
     <div class="copy">

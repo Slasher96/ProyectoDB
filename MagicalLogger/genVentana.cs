@@ -17,19 +17,20 @@ namespace MagicalLogger
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
         public genVentana()
         {
-            this.genSubsistemas = new HashSet<genSubsistemas>();
             this.genLlamada = new HashSet<genLlamada>();
+            this.genSubsistemas = new HashSet<genSubsistemas>();
         }
     
         public int idVentana { get; set; }
         public string descripcion { get; set; }
         public int idControl { get; set; }
         public bool estaActivo { get; set; }
+        public bool esVentanaArranque { get; set; }
     
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
-        public virtual ICollection<genSubsistemas> genSubsistemas { get; set; }
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<genLlamada> genLlamada { get; set; }
+        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
+        public virtual ICollection<genSubsistemas> genSubsistemas { get; set; }
         public virtual regcontroles regcontroles { get; set; }
     }
 }

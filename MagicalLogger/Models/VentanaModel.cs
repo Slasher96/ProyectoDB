@@ -16,5 +16,20 @@ namespace MagicalLogger.Models
         public bool EsVentanaArranque { get; set; }
 
         public bool EstaActivo { get; set; }
+
+
+        public List<VentanaModel> GetVentanasList()
+        {
+            using (var context = new loggerBDEntities())
+            {
+                List<VentanaModel> ventanaslist = new List<VentanaModel>();
+
+                foreach (var item in context.genVentana.Where(a=>a.estaActivo).ToList())
+                {
+                    ventanaslist.Add( new VentanaModel { IdVentana = item.idVentana, Descripcion = item.descripcion, EsVentanaArranque = item.esVentanaArranque });
+                }
+                return ventanaslist;
+            }
+        }
     }
 }

@@ -31,10 +31,10 @@ namespace MagicalLogger
         public virtual DbSet<genPerfilUsuario> genPerfilUsuario { get; set; }
         public virtual DbSet<genPermisos> genPermisos { get; set; }
         public virtual DbSet<genSubsistemas> genSubsistemas { get; set; }
-        public virtual DbSet<genVentana> genVentana { get; set; }
         public virtual DbSet<regAcciones> regAcciones { get; set; }
         public virtual DbSet<genUsuarios> genUsuarios { get; set; }
         public virtual DbSet<genControl> genControl { get; set; }
         public virtual DbSet<regcontroles> regcontroles { get; set; }
+        public virtual DbSet<genVentana> genVentana { get; set; }
     }
 }

@@ -35,12 +35,15 @@ namespace MagicalLogger.Controllers
 
         public ActionResult MainView()
         {
+            var mainObj = new MainViewModel();
+            
+
             return this.View();
         }
 
         public ActionResult NewUser()
         {
-            return View();
+            return View(new UsuariosModel().ListaPerfiles = new PerfilUsuarioModel().GetPerfiles());
         }
 
         [HttpPost]

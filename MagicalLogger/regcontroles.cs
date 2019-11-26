@@ -27,8 +27,8 @@ namespace MagicalLogger
         public int idAccion { get; set; }
     
         public virtual genControl genControl { get; set; }
+        public virtual regAcciones regAcciones { get; set; }
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<genVentana> genVentana { get; set; }
-        public virtual regAcciones regAcciones { get; set; }
     }
 }
