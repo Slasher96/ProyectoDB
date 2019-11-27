@@ -38,29 +38,42 @@
     <div class="mid-cls">
         @using (Html.BeginForm())
         {
-            <div class="main">
-                <div class="icon-head-wthree">
-                    <div class="images-headder">
-                        <div class="wrap-custom-file">
-                            <input type="file" name="image1" id="image1" accept=".gif, .jpg, .png" />
-                            <label for="image1">
-                                <span><img src="images/t1.jpg" alt="" class="image-fluid"></span>
-                                <span class="fas fa-camera-retro"></span>
-                            </label>
-                        </div>
+        <div class="main">
+            <div class="icon-head-wthree">
+                <div class="images-headder">
+                    <div class="wrap-custom-file">
+                        <input type="file" name="image1" id="image1" accept=".gif, .jpg, .png" />
+                        <label for="image1">
+                            <span><img src="images/t1.jpg" alt="" class="image-fluid"></span>
+                            <span class="fas fa-camera-retro"></span>
+                        </label>
                     </div>
                 </div>
-                <div class="form-right-w3ls ">
-                    @Html.LabelFor(a => a.Subsistema)
-                    @Html.DropDownListFor(a => a.Subsistema, listItems, "--Seleccionar--")<br />
-                    <p style="color:red">@Html.ValidationMessageFor(a => a.Subsistema)</p>
-                    <div class="clear"></div>
-                </div>
-                <div class="btnn">
-                    <button type="submit">Ejecutar</button><br>
-                    <div class="clear"></div>
-                </div>
             </div>
+            <div class="form-right-w3ls ">
+                @Html.LabelFor(a => a.Subsistema)
+                @Html.DropDownListFor(a => a.Subsistema, listItems, "--Seleccionar--")<br />
+                <p style="color:red">@Html.ValidationMessageFor(a => a.Subsistema)</p>
+                <div class="clear"></div>
+            </div>
+            <div class="form-right-w3ls "> @*Buscar como agregar una validacion para llamar el metodo de ventanas por subsistema*@
+                @Html.LabelFor(a => a.Ventana)
+                @Html.DropDownListFor(a => a.ListaVentanas, listItems, "--Seleccionar--")<br />
+                <p style="color:red">@Html.ValidationMessageFor(a => a.Subsistema)</p>
+                <div class="clear"></div>
+            </div>
+
+            <div class="form-right-w3ls ">
+                @Html.LabelFor(a => a.Control) @*Buscar como agregar una validacion para llamar el metodo de controles por ventana*@
+                @Html.DropDownListFor(a => a.ListaControles, listItems, "--Seleccionar--")<br />
+                <p style="color:red">@Html.ValidationMessageFor(a => a.Subsistema)</p>
+                <div class="clear"></div>
+            </div>
+            <div class="btnn">
+                <button type="submit">Ejecutar</button><br>
+                <div class="clear"></div>
+            </div>
+        </div>
         }
     </div>
     <div class="copy">
