@@ -16,16 +16,16 @@ namespace MagicalLogger.Models
 
         public MainViewModel()
         {
-            foreach (var item in new loggerBDEntities().genSubsistemas.Where(a => a.estaActivo).ToList())
-            {
-                ListaSubsistemas.Add(new SubsistemaModel
-                {
-                    IdSubsistema = item.idSubsistema,
-                    Descripcion = item.descripcion,
-                    EstaActivo = item.estaActivo,
-                    ListaVentanas = new VentanaModel().GetVentanasList()
-                });
-            }
+            //foreach (var item in new loggerBDEntities().genSubsistemas.Where(a => a.estaActivo).ToList())
+            //{
+            //    ListaSubsistemas.Add(new SubsistemaModel
+            //    {
+            //        IdSubsistema = item.idSubsistema,
+            //        Descripcion = item.descripcion,
+            //        EstaActivo = item.estaActivo,
+            //        ListaVentanas = new VentanaModel().GetVentanasList()
+            //    });
+            //}
         }
 
         public List<SubsistemaModel> ListaSubsistemas { get; set; }

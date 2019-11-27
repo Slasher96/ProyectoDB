@@ -16,6 +16,11 @@
 <head>
     <title>Agregar Usuario</title>    <!-- cambiar por el titulo de la ventana actual -->
     <!-- Meta tags -->
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="https://www.w3schools.com/w3css/4/w3.css">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Lato">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
     <meta name="viewport" content="width=device-width, initial-scale=1" />
     <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
     <meta name="keywords" content="Solo Profile Form Responsive Widget, Audio and Video players, Login Form Web Template, Flat Pricing Tables, Flat Drop-Downs, Sign-Up Web Templates, Flat Web Templates, Login Sign-up Responsive Web Template, Smartphone Compatible Web Template, Free Web Designs for Nokia, Samsung, LG, Sony Ericsson, Motorola Web Design" />
@@ -28,6 +33,15 @@
     <!-- //font-awesome icons -->
     <!--stylesheets-->
     <link href="@Url.Content("~/CSS/styleRegister.css")" rel='stylesheet' type='text/css' media="all">
+    <style>
+        body {
+            font-family: "Lato", sans-serif
+        }
+
+        .mySlides {
+            display: none
+        }
+    </style>
     <!--//style sheet end here-->
     <link href="//fonts.googleapis.com/css?family=Montserrat:300,400,500,600" rel="stylesheet">
 </head>
@@ -35,6 +49,21 @@
     <h1 class="header-w3ls">
         Solo Profile Widget
     </h1>
+    <div class="w3-top">
+        <div class="w3-bar w3-black w3-card">
+            <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
+            <a href="@Url.Action("MainView","Index")" class="w3-bar-item w3-button w3-padding-large">Inicio</a>
+            <a href="#tour" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Permisos de Usuario</a>
+            <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Resultados de las consultas especiales</a>
+            <div class="w3-dropdown-hover w3-hide-small">
+                <button class="w3-padding-large w3-button" title="More">Mas <i class="fa fa-caret-down"></i></button>
+                <div class="w3-dropdown-content w3-bar-block w3-card-4">
+                    <a href="@Url.Action("Index","Index")" class="w3-bar-item w3-button">Cerrar Sesión</a>
+                </div>
+            </div>
+            <a href="javascript:void(0)" class="w3-padding-large w3-hover-red w3-hide-small w3-right"><i class="fa fa-search"></i></a>
+        </div>
+    </div>
     <div class="mid-cls">
         @using (Html.BeginForm())
         {
@@ -48,6 +77,28 @@
                             <span class="fas fa-camera-retro"></span>
                         </label>
                     </div>
+                </div>
+                <div class="form-right-w3ls ">
+                    @Html.LabelFor(a => a.Subsistema)
+                    @Html.DropDownListFor(a => a.Subsistema, listItems, "--Seleccionar--")<br />
+                    <p style="color:red">@Html.ValidationMessageFor(a => a.Subsistema)</p>
+                    <div class="clear"></div>
+                </div>
+                <div class="form-right-w3ls ">
+                    @Html.LabelFor(a => a.Subsistema)
+                    @Html.DropDownListFor(a => a.Subsistema, listItems, "--Seleccionar--")<br />
+                    <p style="color:red">@Html.ValidationMessageFor(a => a.Subsistema)</p>
+                    <div class="clear"></div>
+                </div>
+                <div class="form-right-w3ls ">
+                    @Html.LabelFor(a => a.Subsistema)
+                    @Html.DropDownListFor(a => a.Subsistema, listItems, "--Seleccionar--")<br />
+                    <p style="color:red">@Html.ValidationMessageFor(a => a.Subsistema)</p>
+                    <div class="clear"></div>
+                </div>
+                <div class="btnn">
+                    <button type="submit">Ejecutar</button><br>
+                    <div class="clear"></div>
                 </div>
             </div>
             <div class="form-right-w3ls ">
