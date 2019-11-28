@@ -50,20 +50,45 @@ namespace MagicalLogger.Models
 
         public List<PerfilUsuarioModel> ListaPerfiles { get; set; }
 
-        public PerfilUsuarioModel perfil { get; set; }
+        public PerfilUsuarioModel Perfil { get; set; }
         public bool EstaActivo { get; set; }
+
+        public List<UsuariosModel> ListaUsuarios { get; set; }
+
 
         public void AddUser(UsuariosModel usuario)
         {
-            using (var context =  new loggerBDEntities())
+            using (var context = new loggerBDEntities())
             {
-                
+                context.genUsuarios.Add(new genUsuarios
+                {
+                     // si truena es pro que falta el id usuario
+                      nombre = usuario.Nombre
+                });
             }
         }
 
-        public void GetUsers()
+        public List<UsuariosModel> GetUsers()
         {
-
+            var usuarios = new List<UsuariosModel>();
+            using (var context = new loggerBDEntities())
+            {
+                foreach (var item in context.genUsuarios.Where(a => a.estaActivo).ToList())
+                {
+                    usuarios.Add(new UsuariosModel
+                    {
+                        IdUsuario = item.idUsuario,
+                        NombreUsuario = item.nombreUsuario,
+                        Nombre = item.nombre,
+                        PrimerApellido = item.primerApellido,
+                        SegundoApellido = item.segundoApellido,
+                        NumeroIne = item.numeroINE,
+                        Telefono = item.telefono,
+                        IdPerfil = item.idPerfil
+                    });
+                }
+            }
+            return usuarios;
         }
 
         public void GetUser(int idUsuario)

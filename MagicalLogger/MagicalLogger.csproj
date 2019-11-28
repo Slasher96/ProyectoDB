@@ -97,10 +97,13 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="CSS\fontawesome-all.min.css" />
+    <Content Include="CSS\main.css" />
     <Content Include="CSS\style.css" />
     <Content Include="CSS\styleRegister.css" />
+    <Content Include="CSS\util.css" />
     <Content Include="Global.asax" />
     <Content Include="JS\jquery-2.2.3.min.js" />
+    <Content Include="JS\main.js" />
     <Content Include="LoggerDB.Context.tt">
       <Generator>TextTemplatingFileGenerator</Generator>
       <LastGenOutput>LoggerDB.Context.cs</LastGenOutput>
@@ -120,6 +123,7 @@
   <ItemGroup>
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="Controllers\IndexController.cs" />
+    <Compile Include="Controllers\MainController.cs" />
     <Compile Include="genAccionesCat.cs">
       <DependentUpon>LoggerDB.tt</DependentUpon>
     </Compile>
@@ -200,6 +204,7 @@
     <Content Include="Views\Index\Index.cshtml" />
     <Content Include="Views\Index\MainView.cshtml" />
     <Content Include="Views\Index\NewUser.cshtml" />
+    <Content Include="Views\Main\Index.cshtml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>

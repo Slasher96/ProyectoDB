@@ -7,10 +7,14 @@
 @{
     // se llena la lista de subsistemas para la carga inicial
     List<SelectListItem> listItems = new List<SelectListItem>();
-    foreach (var item in Model.ListaSubsistemas)
-    {
-        listItems.Add(new SelectListItem { Text = item.Descripcion, Value = item.IdSubsistema.ToString() });
-    }
+
+
+    listItems.Add(new SelectListItem { Text = "textoPrueba1", Value = "1" });
+    listItems.Add(new SelectListItem { Text = "textoPrueba2", Value = "2" });
+    listItems.Add(new SelectListItem { Text = "textoPrueba2", Value = "3" });
+    listItems.Add(new SelectListItem { Text = "textoPrueba2", Value = "4" });
+    listItems.Add(new SelectListItem { Text = "textoPrueba2", Value = "5" });
+
 }
 <html lang="es-mx">
 <head>
@@ -53,7 +57,7 @@
         <div class="w3-bar w3-black w3-card">
             <a class="w3-bar-item w3-button w3-padding-large w3-hide-medium w3-hide-large w3-right" href="javascript:void(0)" onclick="myFunction()" title="Toggle Navigation Menu"><i class="fa fa-bars"></i></a>
             <a href="@Url.Action("MainView","Index")" class="w3-bar-item w3-button w3-padding-large">Inicio</a>
-            <a href="#tour" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Permisos de Usuario</a>
+            <a href="@Url.Action("Index","Main")" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Consultar Usuarios</a>
             <a href="#contact" class="w3-bar-item w3-button w3-padding-large w3-hide-small">Resultados de las consultas especiales</a>
             <div class="w3-dropdown-hover w3-hide-small">
                 <button class="w3-padding-large w3-button" title="More">Mas <i class="fa fa-caret-down"></i></button>
@@ -67,64 +71,41 @@
     <div class="mid-cls">
         @using (Html.BeginForm())
         {
-        <div class="main">
-            <div class="icon-head-wthree">
-                <div class="images-headder">
-                    <div class="wrap-custom-file">
-                        <input type="file" name="image1" id="image1" accept=".gif, .jpg, .png" />
-                        <label for="image1">
-                            <span><img src="images/t1.jpg" alt="" class="image-fluid"></span>
-                            <span class="fas fa-camera-retro"></span>
-                        </label>
+            <div class="main">
+                <div class="icon-head-wthree">
+                    <div class="images-headder">
+                        <div class="wrap-custom-file">
+                            <input type="file" name="image1" id="image1" accept=".gif, .jpg, .png" />
+                            <label for="image1">
+                                <span><img src="images/t1.jpg" alt="" class="image-fluid"></span>
+                                <span class="fas fa-camera-retro"></span>
+                            </label>
+                        </div>
+                        <br />
+                    </div><br />
+                    <div class="form-right-w3ls ">
+                        @Html.LabelFor(a => a.Subsistema)
+                        @Html.DropDownList("Subsistema", listItems, "--Seleccionar--")<br />
+                        <p style="color:red">@Html.ValidationMessageFor(a => a.Subsistema)</p>
+                        <br />
+                    </div>
+                    <div class="form-right-w3ls ">
+                        @Html.LabelFor(a => a.ListaVentanas)
+                        @Html.DropDownList("Ventana", new SelectList(string.Empty,"value","text"), "--Seleccionar--")<br />
+                        <p style="color:red">@Html.ValidationMessageFor(a => a.Subsistema)</p>
+                        <br />
+                    </div><br />
+                    <div class="form-right-w3ls ">
+                        @Html.LabelFor(a => a.ListaControles)
+                        @Html.DropDownList("Control",new SelectList(string.Empty,"value","text"), "--Seleccionar--")<br />
+                        <p style="color:red">@Html.ValidationMessageFor(a => a.Subsistema)</p>
+                        <br />
+                    </div><br />
+                    <div class="btnn">
+                        <button type="submit">Ejecutar</button><br>
                     </div>
                 </div>
-                <div class="form-right-w3ls ">
-                    @Html.LabelFor(a => a.Subsistema)
-                    @Html.DropDownListFor(a => a.Subsistema, listItems, "--Seleccionar--")<br />
-                    <p style="color:red">@Html.ValidationMessageFor(a => a.Subsistema)</p>
-                    <div class="clear"></div>
-                </div>
-                <div class="form-right-w3ls ">
-                    @Html.LabelFor(a => a.Subsistema)
-                    @Html.DropDownListFor(a => a.Subsistema, listItems, "--Seleccionar--")<br />
-                    <p style="color:red">@Html.ValidationMessageFor(a => a.Subsistema)</p>
-                    <div class="clear"></div>
-                </div>
-                <div class="form-right-w3ls ">
-                    @Html.LabelFor(a => a.Subsistema)
-                    @Html.DropDownListFor(a => a.Subsistema, listItems, "--Seleccionar--")<br />
-                    <p style="color:red">@Html.ValidationMessageFor(a => a.Subsistema)</p>
-                    <div class="clear"></div>
-                </div>
-                <div class="btnn">
-                    <button type="submit">Ejecutar</button><br>
-                    <div class="clear"></div>
-                </div>
             </div>
-            <div class="form-right-w3ls ">
-                @Html.LabelFor(a => a.Subsistema)
-                @Html.DropDownListFor(a => a.Subsistema, listItems, "--Seleccionar--")<br />
-                <p style="color:red">@Html.ValidationMessageFor(a => a.Subsistema)</p>
-                <div class="clear"></div>
-            </div>
-            <div class="form-right-w3ls "> @*Buscar como agregar una validacion para llamar el metodo de ventanas por subsistema*@
-                @Html.LabelFor(a => a.Ventana)
-                @Html.DropDownListFor(a => a.ListaVentanas, listItems, "--Seleccionar--")<br />
-                <p style="color:red">@Html.ValidationMessageFor(a => a.Subsistema)</p>
-                <div class="clear"></div>
-            </div>
-
-            <div class="form-right-w3ls ">
-                @Html.LabelFor(a => a.Control) @*Buscar como agregar una validacion para llamar el metodo de controles por ventana*@
-                @Html.DropDownListFor(a => a.ListaControles, listItems, "--Seleccionar--")<br />
-                <p style="color:red">@Html.ValidationMessageFor(a => a.Subsistema)</p>
-                <div class="clear"></div>
-            </div>
-            <div class="btnn">
-                <button type="submit">Ejecutar</button><br>
-                <div class="clear"></div>
-            </div>
-        </div>
         }
     </div>
     <div class="copy">
@@ -133,7 +114,7 @@
     <!--js working-->
     <script src='@Url.Content("~/JS/jquery-2.2.3.min.js")'></script>
     <!--//js working-->
-    <script>
+    <script type="text/javascript">
         $('input[type="file"]').each(function () {
             // Refs
             var $file = $(this),
@@ -159,6 +140,39 @@
 
             // End loop of file input elements
         });
+
+    $(document).ready(function () { //validar que cargu elos dropDown
+        //Dropdownlist Selectedchange event
+        $("#Subsistema").change(function () {
+            $("#Ventana").empty();
+            $.ajax({
+                type: 'POST',
+                url: '@Url.Action("GetVentanasForIdSubsistema","Index")', // we are calling json method
+
+                dataType: 'json',
+
+                data: { id: $("#Subsistema").val() },
+               // here we are get value of selected country and passing same value
+               //   as inputto json method GetStates.
+
+                success: function (states) {
+                    // states contains the JSON formatted list
+                    // of states passed from the controller
+
+                    $.each(states, function (i, state) {
+                    $("#Ventana").append('<option value="' + state.Value + '">' +
+                         state.Text + '</option>');
+                    // here we are adding option for States
+
+                    });
+                },
+                error: function (ex) {
+                    alert('Fallo carga de ventanas.' + ex);
+                }
+            });
+            return false;
+        })
+    });
     </script>
 </body>
 </html>
